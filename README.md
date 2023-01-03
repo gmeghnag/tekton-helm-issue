@@ -39,3 +39,20 @@ The issue is happening most probably because of the `.metadata.labels."app.kuber
 oc get pipeline tekton-helm-issue-pipeline -n tekton-helm-issue -o json | jq '.metadata.labels."app.kubernetes.io/managed-by"' 
 "Helm"
 ```
+
+# Additional info
+```
+$ tkn version                      
+Client version: 0.22.0
+Pipeline version: v0.37.5
+Triggers version: v0.20.2
+
+$ oc version                       
+Client Version: 4.8.0-202108312109.p0.git.0d10c3f.assembly.stream-0d10c3f
+Server Version: 4.11.21
+Kubernetes Version: v1.24.6+5658434
+
+$ oc get csv -n openshift-pipelines
+NAME                                     DISPLAY                       VERSION   REPLACES   PHASE
+openshift-pipelines-operator-rh.v1.8.2   Red Hat OpenShift Pipelines   1.8.2                Succeeded
+```
