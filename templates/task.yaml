@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: task-example
+  namespace: {{ .Values.namespace }}
+spec:
+  steps:
+  - name: build-and-push-image
+    image: registry.redhat.io/rhel8/buildah
+    securityContext:
+      capabilities:
+        add:
+        - SETFCAP
+    script: |
+      echo "FROM registry.access.redhat.com/ubi8/ubi" > Dockerfile
+      buildah bud --storage-driver vfs -t image-registry.openshift-image-registry.svc:5000/tekton-helm-issue/test-image:latest .
+      buildah push --storage-driver vfs image-registry.openshift-image-registry.svc:5000/tekton-helm-issue/test-image:latest

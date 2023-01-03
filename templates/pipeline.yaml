@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tekton-helm-issue-pipeline
+  namespace: {{ .Values.namespace }}
+spec:
+  tasks:
+    - name: first-task
+      taskRef:
+        name: task-example
